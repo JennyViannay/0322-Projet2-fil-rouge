@@ -1,0 +1,12 @@
+.space-invader {
+    height: 7vh;
+}
+
+.bg-blue {
+    --bs-bg-opacity: 1;
+    background-color: blue;
+}
+
+.card img {
+    max-height: 220px;
+}

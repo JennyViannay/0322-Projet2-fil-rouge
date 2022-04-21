@@ -1,0 +1,23 @@
+{% block title %}Home
+{% endblock %}
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+        {% for model in models %}
+			<div class="col-lg-3 col-md-4 col-sm-3">
+				<div class="card">
+					<img src="{{model.illustration}}" class="card-img-top" alt="illustration-card">
+					<div class="card-body">
+						<h5 class="card-title">{{model.name}}</h5>
+						<p class="card-text">{{model.description|length > 100 ? model.description|slice(0, 100) ~ '...' : model.description}}</p>
+                        <p>Prix : {{model.price}} €</p>
+						<a href="/models?slug={{model.slug}}" class="btn btn-primary">Voir plus</a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
