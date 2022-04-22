@@ -19,7 +19,7 @@ class ProductManager extends AbstractManager
     {
         $results = [];
         foreach ($colors as $color) {
-            $statement = $this->pdo->prepare("SELECT DISTINCT(size_id), size.size FROM " . self::TABLE . " JOIN size ON size.id = product.size_id WHERE color_id = :colorId");
+            $statement = $this->pdo->prepare("SELECT DISTINCT(size_id), size.size as size_name FROM " . self::TABLE . " JOIN size ON size.id = product.size_id WHERE color_id = :colorId");
             $statement->bindValue('colorId', $color['color_id'], \PDO::PARAM_INT);
             $statement->execute();
 

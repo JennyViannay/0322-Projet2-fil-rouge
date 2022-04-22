@@ -1,7 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-	<div class="container">
+	<div
+		class="container">
 		{{dump(products)}}
 		<div class="row text-center">
 			<div class="col-md-12">
@@ -14,23 +15,43 @@
 				<form>
 					<select class="form-select" aria-label="select color" name="color" id="color">
 						<option value="null">Selectionner une couleur</option>
-						{% for color in products %}
-							<option value="{{ color.color_id }}">{{ color.color_name }}</option>
+						{% for product in products %}
+							<option value="{{ product.color_id }}">{{ product.color_name }}</option>
 						{% endfor %}
-						<div class="form-check">
-						{% for size in products.sizes %}
-							<input class="form-check-input" type="checkbox" value="{{size.size_id}}" id="flexCheckDefault">
-							<label class="form-check-label" for="flexCheckDefault">
-								{{size.size_name}}
-							</label>
-						{% endfor %}
-						</div>
-					</form>
-				</div>
-				<div class="col-md-6">
-					<img src="{{ model.illustration }}" alt="illustration produit"/>
-				</div>
+					</select>
+							<div
+								class="form-check" id="form-check">
+								
+								{# <input class="form-check-input" type="checkbox" value="" name="size" id="size">
+								<label class="form-check-label" for="size"> #}
+								
+								{# </label> #}
+							</div>
+				
+					<button type="submit">Ajouter au panier</button>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<img src="{{ model.illustration }}" alt="illustration produit"/>
 			</div>
 		</div>
 	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+const products = {{products|json_encode|raw}};
+document.getElementById('color').addEventListener('change', e => {
+	console.log(e.target.value)
+	products.forEach(product => {
+		if (product.color_id === e.target.value) {
+			product.sizes.forEach(size => {
+				console.log(size)
+			})
+		}
+	})	
+})
+
+</script>
 {% endblock %}

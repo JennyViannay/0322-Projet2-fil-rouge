@@ -6,7 +6,7 @@ class ModelManager extends AbstractManager
 {
     public const TABLE = 'model';
 
-    public function selectOneBySlug(string $slug): array|false
+    public function selectOneBySlug(string $slug): array
     {
         $statement = $this->pdo->prepare("SELECT * FROM " . self::TABLE . " WHERE slug = :slug");
         $statement->bindValue('slug', $slug, \PDO::PARAM_STR);
