@@ -12,4 +12,5 @@ return [
     'logout' => ['SecurityController', 'logout',],
     'register' => ['SecurityController', 'register',],
     'models' => ['ProductController', 'index', ['slug']],
+    'cart' => ['CartController', 'index',],
 ];

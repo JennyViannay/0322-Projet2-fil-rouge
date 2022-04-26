@@ -15,7 +15,7 @@ class SecurityController extends AbstractController
                 // TRAITEMENT DU FORMULAIRE (trim, ...)
                 $user = $userManager->selectOneByEmail($_POST['email']);
                 if ($user) {
-                    if (password_verify($_POST['password'], $user['password'])) {
+                    if (md5($_POST['password']) === $user['password']) {
                         $_SESSION['user'] = [
                             'id' => $user['id'],
                             'email' => $user['email']

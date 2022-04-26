@@ -7,31 +7,53 @@ use App\Model\ProductManager;
 
 class CartService
 {
-
-    private $modelManager;
-    private $productManager;
-
-    public function __construct(ModelManager $modelManager, ProductManager $productManager)
+    public function add(int $id)
     {
-        $this->modelManager = $modelManager;
-        $this->productManager = $productManager;
-    }
-
-    public function add($id)
-    {
-        $product = $this->productManager->selectOneById($id);
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
         if (!empty($_SESSION['cart'][$id])) {
-            $newCount = intval($product['quantity']) - intval($_SESSION['cart'][$product['id']] + 1);
-            if ($newCount >= 0) {
-                $_SESSION['cart'][$id]++;
-            } else {
-                $_SESSION['flash_message'] = ["Article " . $product['model'] . " is only available in " . $product['quantity'] . " examples !"];
-                header('Location:/cart');
-            }
+            $_SESSION['cart'][$id]++;
         } else {
             $_SESSION['cart'][$id] = 1;
         }
-        // $_SESSION['count'] = $this->countArticle();
-        // header('Location:/home/showArticle/' . $id);
+    }
+
+    public function remove(int $id)
+    {
+        $cart = $_SESSION['cart'];
+        if (!empty($cart[$id])) {
+            $cart[$id]--;
+            if ($cart[$id] === 0) {
+                unset($cart[$id]);
+            }
+        }
+        $_SESSION['cart'] = $cart;
+        header('Location: /cart');
+    }
+
+    public function countProductInCart()
+    {
+        $total = 0;
+        $cart = $_SESSION['cart'] ?? [];
+        foreach ($cart as $id => $quantity) {
+            $total +=  $quantity;
+        }
+        $_SESSION['cart']['nb_articles'] = $total;
+        return $total;
+    }
+
+    public function totalPriceCart()
+    {
+        $modelManager = new ModelManager();  
+        $total = 0;
+        $cart = $_SESSION['cart'] ?? [];
+        foreach ($cart as $id => $quantity) {
+            $product = $modelManager->selectOneById(intval($id));
+            // var_dump($product); die;
+            $total += ($product['price'] * $quantity);
+        }
+        $_SESSION['cart']['total_cart'] = $total;
+        return $total;
     }
 }

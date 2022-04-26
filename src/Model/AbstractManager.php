@@ -36,7 +36,7 @@ abstract class AbstractManager
     /**
      * Get one row from database by ID.
      */
-    public function selectOneById(int $id): array|false
+    public function selectOneById(int $id)
     {
         // prepared request
         $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE id=:id");

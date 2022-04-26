@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : jeu. 21 avr. 2022 à 06:00
+-- Généré le : mar. 26 avr. 2022 à 15:13
 -- Version du serveur :  5.7.32
 -- Version de PHP : 7.4.12
 
@@ -80,7 +80,7 @@ INSERT INTO `product` (`id`, `model_id`, `color_id`, `quantity`, `size_id`) VALU
 (11, 1, 2, 2, 2),
 (12, 1, 2, 3, 3),
 (13, 2, 2, 2, 3),
-(14, 2, 2, 2, 4);
+(14, 2, 2, 2, 2);
 
 -- --------------------------------------------------------
 

@@ -14,6 +14,13 @@
 						<p class="card-text">{{model.description|length > 100 ? model.description|slice(0, 100) ~ '...' : model.description}}</p>
                         <p>Prix : {{model.price}} €</p>
 						<a href="/models?slug={{model.slug}}" class="btn btn-primary">Voir plus</a>
+
+						{# <a href="/cart?add_to_cart={{model.id}}" class="btn btn-primary">Ajout au panier</a> #}
+
+						<form method="POST">
+							<input type="number" name="article_id" value="{{model.id}}" class="d-none" />
+							<button type="submit" class="btn btn-primary">Ajout au panier</button>
+						</form>
 					</div>
 				</div>
 			</div>

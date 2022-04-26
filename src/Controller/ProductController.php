@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\ModelManager;
 use App\Model\ProductManager;
+use App\Service\CartService;
 
 class ProductController extends AbstractController
 {
@@ -18,7 +19,6 @@ class ProductController extends AbstractController
         $model = $modelManager->selectOneBySlug($slug);
         $products = $productManager->selectAllByModel($model['id']);
 
-        // var_dump($products);
         return $this->twig->render('Product/index.html.twig', [
             'model' => $model,
             'products' => $products,

@@ -1,0 +1,41 @@
+{% block title %}
+	Panier
+{% endblock %}
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Model</th>
+					<th scope="col">Prix à l'unité</th>
+					<th scope="col">Qty</th>
+					<th scope="col">Prix</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in cart %}
+					<tr>
+						<th scope="row">{{item.product.id}}</th>
+						<td>{{item.product.name}}</td>
+						<td>{{item.product.price}}</td>
+						<td>{{item.quantity}}</td>
+						<td>{{item.product.price * item.quantity}}
+							€</td>
+						<td>
+							<form method="POST">
+								<input type="number" name="delete_id" value="{{item.product.id}}" class="d-none"/>
+								<button type="submit" class="btn btn-danger">Supprimer</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+
+                {{dump(session)}}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

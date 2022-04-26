@@ -6,7 +6,7 @@ class UserManager extends AbstractManager
 {
     public const TABLE = 'user';
 
-    public function insert(array $user): array|false
+    public function insert(array $user): array
     {
         $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE ." (email, password) VALUES (:email, :password)");
         $statement->bindValue('email', $user['email'], \PDO::PARAM_STR);
@@ -16,7 +16,7 @@ class UserManager extends AbstractManager
         return $statement->fetch();
     }
 
-    public function selectOneByEmail(string $email): array|false
+    public function selectOneByEmail(string $email): array
     {
         $statement = $this->pdo->prepare("SELECT * FROM " . self::TABLE . " WHERE email = :email");
         $statement->bindValue('email', $email, \PDO::PARAM_STR);
